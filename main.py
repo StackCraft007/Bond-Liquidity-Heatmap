@@ -34,7 +34,7 @@ with st.expander("🎯 System Status & Achievements", expanded=False):
     
     ### 📊 Current Metrics
     - **Active ISINs**: 240 bonds across 6 ratings × 5 tenors
-    - **Total Volume**: 6,500+ billion in simulated trades
+    - **Total Volume**: 6,500,000+ million in simulated trades
     - **Depth Score Range**: 2.8-25.2 with good distribution
     - **Spread Range**: 273-34,187 basis points
     
@@ -159,13 +159,13 @@ def render():
     # Status indicators
     total_isins = metrics['isin'].nunique()
     avg_depth = metrics['depth_score'].mean()
-    total_volume = metrics['qty_cr'].sum() / 1e9  # Convert to billions
+    total_volume = metrics['qty_cr'].sum() / 1e6  # Convert to millions
     
-    logger.info(f"Status metrics - ISINs: {total_isins}, Avg Depth: {avg_depth:.2f}, Total Volume: {total_volume:.1f}B")
+    logger.info(f"Status metrics - ISINs: {total_isins}, Avg Depth: {avg_depth:.2f}, Total Volume: {total_volume:.1f}M")
     
     status_col1.metric("Active ISINs", f"{total_isins}")
     status_col2.metric("Avg Depth Score", f"{avg_depth:.0f}")
-    status_col3.metric("Total Volume (B)", f"{total_volume:.1f}")
+    status_col3.metric("Total Volume (M)", f"{total_volume:.0f}")
 
     latest_metrics = metrics[metrics['trade_ts'] == latest_ts]
     logger.info(f"Latest metrics: {len(latest_metrics)} rows")
@@ -190,7 +190,7 @@ def render():
         
         logger.info(f"Grid created with {len(grid)} cells")
         logger.info(f"Grid depth range: {grid['depth'].min():.2f} to {grid['depth'].max():.2f}")
-        logger.info(f"Grid volume range: {grid['volume'].min()/1e9:.2f}B to {grid['volume'].max()/1e9:.2f}B")
+        logger.info(f"Grid volume range: {grid['volume'].min()/1e6:.2f}M to {grid['volume'].max()/1e6:.2f}M")
         logger.info(f"Grid trade count range: {grid['n_trades'].min()} to {grid['n_trades'].max()}")
 
         # Dynamic thresholds based on current market conditions
@@ -238,13 +238,13 @@ def render():
                     populated_cells += 1
                     val = match.iloc[0]
                     style = f"background-color:{val['colour']};color:white;padding:8px;border-radius:6px;text-align:center;font-weight:bold"
-                    volume_b = val['volume'] / 1e9  # Convert to billions
+                    volume_m = val['volume'] / 1e6  # Convert to millions
                     depth_val = val['depth'] if not pd.isna(val['depth']) else 0
                     spread_val = val['spread'] if not pd.isna(val['spread']) else 0
                     row_cols[i+1].markdown(
                         f"<div style='{style}'>"
                         f"<div>Depth: {depth_val:.1f}</div>"
-                        f"<div>Vol: {volume_b:.1f}B</div>"
+                        f"<div>Vol: {volume_m:.0f}M</div>"
                         f"<div><small>{val['n_trades']} trades</small></div>"
                         f"<div><small>Spread: {spread_val:.1f}bps</small></div>"
                         f"</div>",
