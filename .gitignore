@@ -53,8 +53,8 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Streamlit
-.streamlit/
+# Streamlit (allow config but exclude other files)
+.streamlit/secrets.toml
 
 # Jupyter Notebook
 .ipynb_checkpoints
