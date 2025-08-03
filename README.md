@@ -66,7 +66,7 @@ run.bat
 ## 📊 Usage
 
 1. **Launch the Application**: `streamlit run src\ui.py`
-2. **Access the UI**: Open http://localhost:8501 in your browser
+2. **Access the UI**: Open http://localhost:8501 in your browser and https://stackcraft007-bond-liquidity-heatmap-srcui-y2g42e.streamlit.app/  on streamlit
 3. **Generate Data**: Click "🔄 Regenerate Data" in the sidebar
 4. **View Heatmap**: See color-coded liquidity depth across ratings and tenors
 5. **Monitor Updates**: Auto-refresh every 15 minutes
